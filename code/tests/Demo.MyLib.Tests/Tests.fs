@@ -3,13 +3,18 @@ module Tests
 open Swensen.Unquote
 open Xunit
 
-type Tree = Leaf | Node of (Tree * Tree)
+type Tree =
+    | Leaf
+    | Node of (Tree * Tree)
 
-let numberOfLeaves tree = failwith "Not yet implemented"
-
+let rec numberOfLeaves tree =
+    match tree with
+    | Leaf -> 1
+    | Node(l, r) -> numberOfLeaves l + numberOfLeaves r
+    
 [<Fact>]
 let ``counts the number of leaves in a tree`` () =
-    let treeWith3Leaves = failwith "Not yet implemented"
+    let treeWith3Leaves = Node(Leaf, Node(Leaf, Leaf))
     
     let leaves = numberOfLeaves treeWith3Leaves
     
