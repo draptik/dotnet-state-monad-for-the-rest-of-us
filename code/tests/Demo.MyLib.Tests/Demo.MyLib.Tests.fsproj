@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <Compile Include="Part1.fs" />
-    <Compile Include="Part2.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Demo.MyLib\Demo.MyLib.fsproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Unquote" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Part1.fs"/>
+        <Compile Include="Part2.fs"/>
+        <Compile Include="Program.fs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Demo.MyLib\Demo.MyLib.fsproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Unquote"/>
+    </ItemGroup>
 </Project>
