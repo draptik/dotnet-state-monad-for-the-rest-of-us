@@ -7,8 +7,8 @@ type Tree =
     | Leaf
     | Node of (Tree * Tree)
 
-let rec numberOfLeaves tree =
-    match tree with
+let rec numberOfLeaves =
+    function
     | Leaf -> 1
     | Node(l, r) -> numberOfLeaves l + numberOfLeaves r
     
