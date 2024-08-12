@@ -6,4 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Demo.MyLib\Demo.MyLib.fsproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Unquote" />
+  </ItemGroup>
 </Project>

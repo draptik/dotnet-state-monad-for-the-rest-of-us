@@ -1,8 +1,8 @@
 module Tests
 
-open System
+open Swensen.Unquote
 open Xunit
 
 [<Fact>]
 let ``My test`` () =
-    Assert.True(true)
+    test <@ true = true @>
