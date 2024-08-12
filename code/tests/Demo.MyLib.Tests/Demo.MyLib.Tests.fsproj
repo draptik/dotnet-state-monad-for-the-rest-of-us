@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <Compile Include="Tests.fs" />
+    <Compile Include="Part1.fs" />
+    <Compile Include="Part2.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
