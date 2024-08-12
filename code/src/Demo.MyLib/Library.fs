@@ -1,4 +1,4 @@
-﻿namespace DemoStateMonads.MyLib
+﻿namespace Demo.MyLib
 
 module Say =
     let hello name =
