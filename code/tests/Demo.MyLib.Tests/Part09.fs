@@ -76,7 +76,7 @@ module Part09 =
                 let fv, fc = run f count
                 let _, newCount = run v fc
                 (fv, newCount))
-            
+
         let getCount = WithCount(fun count -> (count, count))
 
         let incrementCount = WithCount(fun count -> ((), count + 1))
