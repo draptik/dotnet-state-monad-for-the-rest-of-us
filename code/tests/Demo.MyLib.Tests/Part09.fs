@@ -1,6 +1,6 @@
 namespace Demo.MyLib.Tests
 
-module Part9 =
+module Part09 =
 
     open Swensen.Unquote
     open Xunit
@@ -17,7 +17,7 @@ module Part9 =
 
     let tree = Node(Leaf "one", Node(Leaf "two", Leaf "three"))
 
-    module Part9_1 =
+    module Part09_1 =
 
         type WithCount<'v> = WithCount of (int -> 'v * int)
 
@@ -52,7 +52,7 @@ module Part9 =
 
             test <@ indexed = Node(Leaf("one", 1), Node(Leaf("two", 2), Leaf("three", 3))) @>
 
-    module Part9_2 =
+    module Part09_2 =
 
         type WithCount<'v> = WithCount of (int -> 'v * int)
 

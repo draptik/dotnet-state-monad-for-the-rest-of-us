@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <Compile Include="Part1.fs"/>
-        <Compile Include="Part2.fs"/>
-        <Compile Include="Part3.fs" />
-        <Compile Include="Part4.fs" />
-        <Compile Include="Part5.fs" />
-        <Compile Include="Part6.fs" />
-        <Compile Include="Part7.fs" />
-        <Compile Include="Part8.fs" />
-        <Compile Include="Part9.fs" />
+        <Compile Include="Part01.fs" />
+        <Compile Include="Part02.fs" />
+        <Compile Include="Part03.fs" />
+        <Compile Include="Part04.fs" />
+        <Compile Include="Part05.fs" />
+        <Compile Include="Part06.fs" />
+        <Compile Include="Part07.fs" />
+        <Compile Include="Part08.fs" />
+        <Compile Include="Part09.fs" />
         <Compile Include="Program.fs"/>
     </ItemGroup>
     <ItemGroup>

@@ -1,6 +1,6 @@
 namespace Demo.MyLib.Tests
 
-module Part6 =
+module Part05 =
 
     open Swensen.Unquote
     open Xunit
@@ -15,21 +15,17 @@ module Part6 =
             | Leaf v -> Leaf(f v)
             | Node(l, r) -> Node(map f l, map f r)
 
-    module Part6_1 =
+    module Part05_1 =
 
         let rec index =
             function
-            | Leaf v -> fun count -> (Leaf(v, count), count + 1)
-            | Node(l, r) ->
-                fun count ->
-                    let li, lc = index l count
-                    let ri, rc = index r lc
-                    Node(li, ri), rc
+            | Leaf v -> failwith "Not yet implemented"
+            | Node(l, r) -> failwith "Not yet implemented"
 
-        [<Fact>]
+        [<Fact(Skip = "Exercise")>]
         let ``indexes a tree`` () =
             let tree = Node(Leaf "one", Node(Leaf "two", Leaf "three"))
 
-            let indexed, _ = index tree 1
+            let indexed = index tree
 
             test <@ indexed = Node(Leaf("one", 1), Node(Leaf("two", 2), Leaf("three", 3))) @>

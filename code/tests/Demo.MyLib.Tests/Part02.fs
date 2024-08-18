@@ -1,11 +1,11 @@
 namespace Demo.MyLib.Tests
 
-module Part2 =
+module Part02 =
 
     open Swensen.Unquote
     open Xunit
 
-    module Part2_1 =
+    module Part02_1 =
 
         type Tree<'a> =
             | Leaf of 'a
@@ -25,7 +25,7 @@ module Part2 =
 
             test <@ treeOfLengths = treeOfNumbers @>
 
-    module Part2_2 =
+    module Part02_2 =
 
         type Tree<'a> =
             | Leaf of 'a
@@ -47,7 +47,7 @@ module Part2 =
 
             test <@ treeOfLengths = treeOfNumbers @>
 
-    module Part2_3 =
+    module Part02_3 =
 
         type Tree<'a> =
             | Leaf of 'a

@@ -1,6 +1,6 @@
 namespace Demo.MyLib.Tests
 
-module Part1 =
+module Part01 =
 
     open Swensen.Unquote
     open Xunit

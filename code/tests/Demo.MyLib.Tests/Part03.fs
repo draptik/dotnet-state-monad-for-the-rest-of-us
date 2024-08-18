@@ -1,11 +1,11 @@
 namespace Demo.MyLib.Tests
 
-module Part3 =
+module Part03 =
 
     open Swensen.Unquote
     open Xunit
 
-    module Part3_1 =
+    module Part03_1 =
 
         type Tree<'a> =
             | Leaf of 'a

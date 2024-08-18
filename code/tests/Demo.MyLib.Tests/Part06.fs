@@ -1,6 +1,6 @@
 namespace Demo.MyLib.Tests
 
-module Part4 =
+module Part06 =
 
     open Swensen.Unquote
     open Xunit
@@ -15,17 +15,21 @@ module Part4 =
             | Leaf v -> Leaf(f v)
             | Node(l, r) -> Node(map f l, map f r)
 
-    module Part4_1 =
+    module Part06_1 =
 
-        let mutable counter = 1
-
-        let impureIndex v =
-            let indeedLeaf = (v, counter)
-            counter <- counter + 1
-            indeedLeaf
+        let rec index =
+            function
+            | Leaf v -> fun count -> (Leaf(v, count), count + 1)
+            | Node(l, r) ->
+                fun count ->
+                    let li, lc = index l count
+                    let ri, rc = index r lc
+                    Node(li, ri), rc
 
         [<Fact>]
-        let ``indexes a tree - impure`` () =
+        let ``indexes a tree`` () =
             let tree = Node(Leaf "one", Node(Leaf "two", Leaf "three"))
-            let indexed = map impureIndex tree
+
+            let indexed, _ = index tree 1
+
             test <@ indexed = Node(Leaf("one", 1), Node(Leaf("two", 2), Leaf("three", 3))) @>

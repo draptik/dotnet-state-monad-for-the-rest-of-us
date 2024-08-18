@@ -1,6 +1,6 @@
 namespace Demo.MyLib.Tests
 
-module Part7 =
+module Part08 =
 
     open Swensen.Unquote
     open Xunit
@@ -17,21 +17,27 @@ module Part7 =
 
     let tree = Node(Leaf "one", Node(Leaf "two", Leaf "three"))
 
-    module Part7_1 =
+    module Part08_1 =
 
         type WithCount<'v> = WithCount of (int -> 'v * int)
 
         let run (WithCount f) (count: int) = f count
 
-        let rec index =
+        let buildNode l r = Node(l, r)
+
+        let pure' v = WithCount(fun count -> (v, count))
+
+        let (<*>) f a =
+            WithCount(fun count ->
+                let fv, fc = run f count
+                let av, ac = run a fc
+                let b = fv av
+                b, ac)
+
+        let rec index<'a> =
             function
             | Leaf v -> WithCount(fun count -> (Leaf(v, count), count + 1))
-            | Node(l, r) ->
-                WithCount(fun count ->
-                    let li, lc = run (index l) count
-                    let ri, rc = run (index r) lc
-                    Node(li, ri), rc)
-
+            | Node(l, r) -> pure' buildNode <*> index l <*> index r
 
         [<Fact>]
         let ``indexes a tree`` () =
