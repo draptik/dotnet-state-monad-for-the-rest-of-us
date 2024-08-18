@@ -38,8 +38,6 @@ module Part11 =
 
         let buildNode l r = Node(l, r)
 
-        let buildLeaf v count = Leaf(v, count)
-
         let pure' v = WithCount(fun count -> (v, count))
 
         let (<*>) f a =
@@ -58,8 +56,6 @@ module Part11 =
         let getCount = WithCount(fun count -> (count, count))
 
         let putCount c = WithCount(fun _ -> ((), c))
-
-        let incrementCount = WithCount(fun count -> ((), count + 1))
 
         let rec index =
             function
