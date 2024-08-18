@@ -23,12 +23,12 @@ module Part10 =
         type WithCount<'b, 'c> = WithCount of ('c -> 'b * 'c)
         // This is actually the signature of the state monad:
         // type State<'b, 's> = State of ('s -> ('b * 's))
-        
+
         let run (WithCount f) (count: int) = f count
 
         let buildNode l r = Node(l, r)
 
-        let buildLeaf v count _ = Leaf(v, count)
+        let buildLeaf v count = Leaf(v, count)
 
         let pure' v = WithCount(fun count -> (v, count))
 
@@ -39,13 +39,19 @@ module Part10 =
                 let b = fv av
                 b, ac)
 
+        let (<*) f v =
+            WithCount(fun count ->
+                let fv, fc = run f count
+                let _, newCount = run v fc
+                (fv, newCount))
+
         let getCount = WithCount(fun count -> (count, count))
 
         let incrementCount = WithCount(fun count -> ((), count + 1))
 
         let rec index =
             function
-            | Leaf v -> pure' buildLeaf <*> pure' v <*> getCount <*> incrementCount
+            | Leaf v -> pure' buildLeaf <*> pure' v <*> getCount <* incrementCount
             | Node(l, r) -> pure' buildNode <*> index l <*> index r
 
         [<Fact>]
