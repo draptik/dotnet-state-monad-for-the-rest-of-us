@@ -26,6 +26,16 @@ module Part11 =
 
         let run (WithCount f) (count: int) = f count
 
+        // bind
+        let (>>=) a f =
+            WithCount(fun count ->
+                let va, ca = run a count
+                let result = f va
+                run result ca)
+
+        // reverse bind
+        // let (=<<) a b = b (>>=) a
+
         let buildNode l r = Node(l, r)
 
         let buildLeaf v count = Leaf(v, count)
@@ -47,12 +57,22 @@ module Part11 =
 
         let getCount = WithCount(fun count -> (count, count))
 
+        let putCount c = WithCount(fun _ -> ((), c))
+
         let incrementCount = WithCount(fun count -> ((), count + 1))
 
         let rec index =
             function
-            | Leaf v -> pure' buildLeaf <*> pure' v <*> getCount <* incrementCount
-            | Node(l, r) -> pure' buildNode <*> index l <*> index r
+            | Leaf v ->
+                getCount
+                >>= (fun count ->
+                    let leaf = Leaf(v, count)
+                    putCount (count + 1) >>= (fun _ -> pure' leaf))
+            | Node(l, r) ->
+                let li = index l
+                let ri = index r
+                let buildNode' l r = pure' (buildNode l r)
+                li >>= (fun ll -> ri >>= (fun rr -> buildNode' ll rr))
 
         [<Fact>]
         let ``indexes a tree`` () =
