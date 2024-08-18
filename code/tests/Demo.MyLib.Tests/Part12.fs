@@ -13,42 +13,42 @@ module Part12 =
 
     module Part12_1 =
 
-        type WithCount<'b, 'c> = WithCount of ('c -> 'b * 'c)
+        type State<'b, 'c> = State of ('c -> 'b * 'c)
 
-        let run (WithCount f) (count: int) = f count
+        let run (State f) count = f count
 
         let (>>=) a f =
-            WithCount(fun count ->
+            State(fun count ->
                 let va, ca = run a count
                 let result = f va
                 run result ca)
 
         let buildNode l r = Node(l, r)
 
-        let pure' v = WithCount(fun count -> (v, count))
+        let pure' v = State(fun count -> (v, count))
 
         // CE
-        type WithCountExpression() =
+        type StateExpression() =
             member this.Return v = pure' v
             member this.Bind(v, f) = v >>= f
 
-        let withCount = WithCountExpression()
+        let state = StateExpression()
 
-        let getCount = WithCount(fun count -> (count, count))
+        let getCount = State(fun count -> (count, count))
 
-        let putCount c = WithCount(fun _ -> ((), c))
+        let putCount c = State(fun _ -> ((), c))
 
         let rec index =
             function
             | Leaf v ->
-                withCount {
+                state {
                     let! count = getCount
                     let leaf = Leaf(v, count)
                     let! _ = putCount (count + 1)
                     return leaf
                 }
             | Node(l, r) ->
-                withCount {
+                state {
                     let! ll = index l
                     let! rr = index r
                     return buildNode ll rr
@@ -56,7 +56,7 @@ module Part12 =
 
         [<Fact>]
         let ``indexes a tree`` () =
-            let withCount = index tree
-            let indexed, _ = run withCount 1
+            let stateWithCount = index tree
+            let indexed, _ = run stateWithCount 1
 
             test <@ indexed = Node(Leaf("one", 1), Node(Leaf("two", 2), Leaf("three", 3))) @>
