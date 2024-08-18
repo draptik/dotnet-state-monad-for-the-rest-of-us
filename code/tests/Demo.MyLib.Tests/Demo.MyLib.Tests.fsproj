@@ -3,6 +3,7 @@
         <Compile Include="Part1.fs"/>
         <Compile Include="Part2.fs"/>
         <Compile Include="Part3.fs" />
+        <Compile Include="Part4.fs" />
         <Compile Include="Program.fs"/>
     </ItemGroup>
     <ItemGroup>
